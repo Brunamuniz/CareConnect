@@ -1,0 +1,29 @@
+.pageFamilia{
+    background-color: #E8EDDF;
+    height: 100%;
+    display: flex;
+    font-family: "Mohave", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: weight;
+    font-style: normal;
+    font-size: 42px;
+    color: #333533;
+    text-shadow: 0.5px 0.5px 4px #E8EDDF;
+}
+
+.pageFamilia:hover{
+    color: #F5CB5C;
+    text-shadow: 0.5px 0.5px 4px #E8EDDF;
+}
+
+.pageFamilia img {
+    padding: 10px;
+}
+
+.Familia{
+    width: 50%;
+}
+
+.LoginFamilia {
+    margin: 50px;
+}

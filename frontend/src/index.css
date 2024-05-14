@@ -1,0 +1,13 @@
+button {
+  border-color: transparent;
+  color: #FDFFFC;
+  width: 150px;
+  height: 25px;
+  border-radius: 15px;
+  font-size: 15px;
+}
+
+select {
+  height: 30px;
+  width: 300px;
+}

@@ -1,0 +1,59 @@
+
+.pageVoluntario{
+  background-color: #E8EDDF;
+  height: 1000px;
+}
+
+.voluntario{
+  height: 600px;
+  width: 100%;
+}
+
+.texto{
+  color: #F5CB5C;
+  text-shadow: 2px 2px 8px #242423;
+  font-family: "Mohave", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+  font-size: 100px;
+  height: 100px;
+  width: 100px;
+  padding: 20px;
+}
+
+.texto:hover{
+  color: #242423;
+  text-shadow: 2px 2px 8px #CFDBD5;
+}
+
+.textVoluntario{
+  background-color: #242423;
+  margin-top: -400px;
+  margin-left: 380px;
+}
+
+img {
+  width: 100%;
+  height: 200px;
+}
+
+.textoExplicativo{
+  margin: 20px;
+  color: #333533;
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 15px;
+}
+
+.textoExplicativo h2 {
+  color: #F5CB5C;
+  text-shadow: 0.05px 0.05px 5px #E8EDDF;
+  font-family: "Mohave", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+  font-size: 30px;
+}
+
