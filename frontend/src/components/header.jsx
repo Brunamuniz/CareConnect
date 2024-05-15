@@ -8,8 +8,10 @@ function Header() {
             <div class="textHeader">
                 <Link to="/" className="linkHeader">Home</Link>
                 <Link to="/voluntario" className="linkHeader">Seja Voluntário</Link>
-                <Link to="/familia" className="linkHeader">Familia</Link>
-                <Link to="/hostel" className="linkHeader">Hostel</Link>
+                <Link to="/familia" className="linkHeader">Família</Link>
+                <Link to="/hostel" className="linkHeader">Locais</Link>
+                <Link to="/homeless" className="linkHeader">Moradores de Rua</Link>
+                <Link to="/Doacao" className="linkHeader">Doação</Link>
             </div>
         </div>
     )
