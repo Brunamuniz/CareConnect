@@ -11,7 +11,9 @@ function App() {
       <Header></Header>
       <div class="home">
         <div>
+          <div class="container">
             <img src={imagemHome} alt="imagem" />
+          </div>
         </div>
         <div class="textHome">
           <h1 class="titulo">Care<span>Connect</span></h1>

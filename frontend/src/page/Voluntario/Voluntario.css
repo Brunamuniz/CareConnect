@@ -55,5 +55,14 @@ img {
   font-weight: weight;
   font-style: normal;
   font-size: 30px;
+  display: flex;
+  justify-content: space-around;
 }
 
+.volunteers{
+  background-color: #CFDBD5;
+    margin: 20px;
+    height: 100%;
+    min-height: 100px;
+    border-radius: 30px;
+}
