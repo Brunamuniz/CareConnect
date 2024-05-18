@@ -1,14 +1,4 @@
-.pageHostel{
-    background-color: #E8EDDF;
-    width: 100%;
-    height: 600px;
-}
 
-.hostel{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
 .Hostel{
     color: #F5CB5C;

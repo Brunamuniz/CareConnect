@@ -1,17 +1,18 @@
 import { createBrowserRouter } from "react-router-dom";
-import Voluntario from "../page/Voluntario/Voluntario.jsx";
+import Volunteers from "../page/Voluntario/Voluntario.jsx";
 import App from "../page/home/App.jsx";
 import Familia from "../page/Familia/familia.jsx";
 import Hostel from "../page/Hostel/Hostel.jsx";
 import Homeless from "../page/Homeless/Homeless.jsx";
 import Doacao from "../page/Doacao.jsx/Doacao.jsx";
-import InternalAccess from "../page/InternalAccess/index.jsx";
+
+
 
 
 
 export const router = createBrowserRouter([
     {path:'/voluntario', 
-    element: <Voluntario/>
+    element: <Volunteers/>
     },
 
     {path:'/',
@@ -32,9 +33,8 @@ export const router = createBrowserRouter([
 
     {path: '/Doacao',
     element: <Doacao/>
-    },
-    {path: '/InternalAccess',
-    element: <InternalAccess/>
     }
+  
+    
 ])
 

@@ -43,12 +43,7 @@ function Header() {
         >
           Doações
         </Link>
-        <Link
-          to="/internalaccess"
-          className={location.pathname === "/acessointerno" ? "active" : "linkHeader"}
-        >
-          Acesso Interno
-        </Link>
+       
       </div>
     </div>
   );

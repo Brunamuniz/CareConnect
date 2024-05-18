@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import "./familia.css"
 import imagemFamilia from '../../imagens/familia.jpg';
 import Header from '../../components/header';
+import Cards from '../../components/Cards';
 
 
 function Familia() {
@@ -15,6 +16,7 @@ function Familia() {
         </div>
         <div class="LoginFamilia">
           <h2 class>Famílias Cadastradas</h2>
+          <Cards/>
         </div>
       </div>
     </div>
