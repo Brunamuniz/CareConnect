@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./header.css";
 
+
 function Header() {
+  const location = useLocation();
+
   return (
-    <div class="header">
-      <div class="textHeader">
+    <div className="header">
+      <div className="textHeader">
         <Link
           to="/"
           className={location.pathname === "/" ? "active" : "linkHeader"}
@@ -35,7 +38,7 @@ function Header() {
           to="/homeless"
           className={location.pathname === "/homeless" ? "active" : "linkHeader"}
         >
-            Moradores de Rua
+          Moradores de Rua
         </Link>
         <Link
           to="/doacao"
@@ -43,7 +46,6 @@ function Header() {
         >
           Doações
         </Link>
-       
       </div>
     </div>
   );

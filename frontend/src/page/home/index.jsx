@@ -1,9 +1,9 @@
-import './App.css';
+import './home.module.css';
 import { Link } from 'react-router-dom';
 import imagemHome from '../../imagens/Voluntario.jpg';
 import Header from '../../components/header';
 
-function App() {
+function Home() {
   return (
     <div>
       <Header />
@@ -25,4 +25,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;
