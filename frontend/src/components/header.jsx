@@ -1,4 +1,4 @@
-import { Link, useLocation, BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./header.css";
 
 

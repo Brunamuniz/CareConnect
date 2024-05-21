@@ -1,16 +1,74 @@
 import React, { useState, useEffect } from 'react';
-import "./Voluntario.css";
-import imagemVoluntario from '../../imagens/voluntariado.jpg';
-import Header from '../../components/header';
-import axios from 'axios';
 import styled from 'styled-components';
+import axios from 'axios';
+import Header from '../../components/header';
+import Global from '../../global/global';
+import imagemVoluntario from '../../imagens/voluntariado.jpg';
 
-// Styled components
+// Styled Components
+const PageVoluntario = styled.div`
+  background-color: #E8EDDF;
+  height: 1000px;
+`;
+
+const VoluntarioSection = styled.div`
+  height: 600px;
+  width: 100%;
+`;
+
+const Image = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+const TextVoluntario = styled.div`
+  color: #F5CB5C;
+  text-shadow: 2px 2px 8px #242423;
+  font-size: 100px;
+  height: 100px;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 20px;
+`;
+
+const TextoExplicativo = styled.div`
+  margin: 20px 0;
+  color: #333533;
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-size: 18px;
+  padding: 20px;
+
+  h2 {
+    color: #F5CB5C;
+    text-shadow: 0.05px 0.05px 5px #E8EDDF;
+    font-family: "Mohave", sans-serif;
+    font-size: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+`;
+
+const VolunteerSection = styled.div`
+  background-color: #CFDBD5;
+  margin: 20px 0;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+`;
+
 const VolunteerCard = styled.div`
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 20px;
   margin: 10px 0;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
 
 const FormContainer = styled.div`
@@ -20,6 +78,10 @@ const FormContainer = styled.div`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
 
 const Input = styled.input`
@@ -27,6 +89,7 @@ const Input = styled.input`
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
+  font-size: 16px;
 `;
 
 const Button = styled.button`
@@ -36,6 +99,28 @@ const Button = styled.button`
   background-color: #28a745;
   color: white;
   cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 10px;
+
+  &:hover {
+    background-color: #218838;
+  }
+
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
+`;
+
+const DeleteButton = styled(Button)`
+  background-color: #dc3545;
+
+  &:hover {
+    background-color: #c82333;
+  }
+`;
+
+const SearchInput = styled(Input)`
+  margin-bottom: 20px;
 `;
 
 const Volunteers = () => {
@@ -45,8 +130,9 @@ const Volunteers = () => {
     voluntarios: [{ nome: '', habilidades: '', disponibilidade: '' }],
     correspondencia: [{ habilidade: '', necessidade: '' }],
     agendamento: [{ atividade: '', data: '' }],
-  
   });
+  const [selectedVolunteer, setSelectedVolunteer] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchVolunteers = async () => {
@@ -78,44 +164,78 @@ const Volunteers = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Data being sent to the server:", newVolunteer); // Adicionando um log para ver os dados enviados
     try {
-      const response = await axios.post('https://careconnect-oy9k.onrender.com/api/volunteer', newVolunteer);
-      setVolunteers([...volunteers, response.data]);
+      const response = selectedVolunteer
+        ? await axios.put(`https://careconnect-oy9k.onrender.com/api/volunteer/${selectedVolunteer._id}`, newVolunteer)
+        : await axios.post('https://careconnect-oy9k.onrender.com/api/volunteer', newVolunteer);
+
+      if (selectedVolunteer) {
+        setVolunteers(volunteers.map(v => (v._id === selectedVolunteer._id ? response.data : v)));
+      } else {
+        setVolunteers([...volunteers, response.data]);
+      }
       setNewVolunteer({
         nomeGrupo: '',
         voluntarios: [{ nome: '', habilidades: '', disponibilidade: '' }],
         correspondencia: [{ habilidade: '', necessidade: '' }],
         agendamento: [{ atividade: '', data: '' }],
-       
       });
+      setSelectedVolunteer(null);
     } catch (error) {
-      console.error('Error adding volunteer:', error.response ? error.response.data : error.message); // Melhorando a mensagem de erro
+      console.error('Error adding/updating volunteer:', error.response ? error.response.data : error.message);
     }
   };
 
+  const handleEdit = (volunteer) => {
+    setSelectedVolunteer(volunteer);
+    setNewVolunteer(volunteer);
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`https://careconnect-oy9k.onrender.com/api/volunteer/${id}`);
+      setVolunteers(volunteers.filter(v => v._id !== id));
+    } catch (error) {
+      console.error('Error deleting volunteer:', error.response ? error.response.data : error.message);
+    }
+  };
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredVolunteers = volunteers.filter((volunteer) =>
+    volunteer.nomeGrupo.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div>
+      <Global />
       <Header />
-      <div className="pageVoluntario">
-        <div className="voluntario">
-          <img src={imagemVoluntario} alt="voluntariado" />
-          <div className="textVoluntario">
-            <div className="conteudoVoluntario"></div>
-            <h1 className="texto">Voluntariado</h1>
-          </div>
-        </div>
-        <div className="textoExplicativo">
+      <PageVoluntario>
+        <VoluntarioSection>
+          <Image src={imagemVoluntario} alt="voluntariado" />
+          <TextVoluntario>Voluntariado</TextVoluntario>
+        </VoluntarioSection>
+        <TextoExplicativo>
           <h2>O que é ser um(a) voluntário(a)?</h2>
-          <p>Ser um voluntário significa dedicar seu tempo, habilidades e energia para ajudar os outros sem esperar nada em troca além da satisfação de fazer a diferença. Um voluntário pode estar envolvido em uma variedade de atividades, desde trabalhar em abrigos de animais até ensinar crianças carentes. O voluntariado não apenas beneficia a comunidade, mas também pode trazer uma sensação de realização pessoal e conexão com os outros. Ser voluntário é sobre dar de si mesmo e contribuir para um mundo melhor, um ato de bondade que pode inspirar e impactar positivamente a vida de muitas pessoas.</p>
-        </div>
-        <div className="volunteers">
+          <p>
+            Ser um voluntário significa dedicar seu tempo, habilidades e energia para ajudar os outros sem esperar nada em troca além da satisfação de fazer a diferença. Um voluntário pode estar envolvido em uma variedade de atividades, desde trabalhar em abrigos de animais até ensinar crianças carentes. O voluntariado não apenas beneficia a comunidade, mas também pode trazer uma sensação de realização pessoal e conexão com os outros. Ser voluntário é sobre dar de si mesmo e contribuir para um mundo melhor, um ato de bondade que pode inspirar e impactar positivamente a vida de muitas pessoas.
+          </p>
+        </TextoExplicativo>
+        <VolunteerSection>
           <h1>Voluntários</h1>
-          {volunteers.map((volunteer) => (
+          <SearchInput
+            type="text"
+            placeholder="Pesquisar voluntário por nome do grupo"
+            value={searchTerm}
+            onChange={handleSearch}
+          />
+          {filteredVolunteers.map((volunteer) => (
             <VolunteerCard key={volunteer._id}>
-              <p>Nome do grupo: {volunteer.nomeGrupo}</p>
+              <h3>Nome do grupo: {volunteer.nomeGrupo}</h3>
               <div>
-                <h3>Voluntários:</h3>
+                <h3>Voluntário:</h3>
                 {volunteer.voluntarios.map((v, index) => (
                   <div key={index}>
                     <p>Nome: {v.nome}</p>
@@ -142,19 +262,20 @@ const Volunteers = () => {
                   </div>
                 ))}
               </div>
-             
+              <Button onClick={() => handleEdit(volunteer)}>Editar</Button>
+              <DeleteButton onClick={() => handleDelete(volunteer._id)}>Excluir</DeleteButton>
             </VolunteerCard>
           ))}
 
           <FormContainer>
-            <h2>Add New Volunteer</h2>
+            <h2>{selectedVolunteer ? 'Editar Voluntário' : 'Adicionar Novo Voluntário'}</h2>
             <Form onSubmit={handleSubmit}>
               <Input
                 type="text"
                 name="nomeGrupo"
                 placeholder="Nome do grupo"
                 value={newVolunteer.nomeGrupo}
-                onChange={handleChange}
+                onChange={(e) => handleChange(e)}
                 required
               />
               <h3>Voluntários</h3>
@@ -186,7 +307,6 @@ const Volunteers = () => {
                   />
                 </div>
               ))}
-              <Button type="button" onClick={() => addField('voluntarios')}>Add Voluntário</Button>
 
               <h3>Correspondência</h3>
               {newVolunteer.correspondencia.map((correspondencia, index) => (
@@ -209,7 +329,6 @@ const Volunteers = () => {
                   />
                 </div>
               ))}
-              <Button type="button" onClick={() => addField('correspondencia')}>Add Correspondência</Button>
 
               <h3>Agendamento</h3>
               {newVolunteer.agendamento.map((agendamento, index) => (
@@ -225,22 +344,18 @@ const Volunteers = () => {
                   <Input
                     type="date"
                     name="data"
-                    placeholder="Data"
                     value={agendamento.data}
                     onChange={(e) => handleChange(e, index, 'agendamento')}
                     required
                   />
                 </div>
               ))}
-              <Button type="button" onClick={() => addField('agendamento')}>Add Agendamento</Button>
 
-          
-
-              <Button type="submit">Add Volunteer</Button>
+              <Button type="submit">{selectedVolunteer ? 'Atualizar Voluntário' : 'Adicionar Voluntário'}</Button>
             </Form>
           </FormContainer>
-        </div>
-      </div>
+        </VolunteerSection>
+      </PageVoluntario>
     </div>
   );
 };

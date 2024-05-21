@@ -4,7 +4,6 @@ import axios from 'axios';
 import styled from 'styled-components';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import familias from '../../imagens/familia.jpg';
 
 const Slide = styled.div`
   position: relative;
@@ -117,7 +116,7 @@ const Carousel = () => {
     <Slider {...settings}>
       {hostels.map((hostel) => (
         <Slide key={hostel._id}>
-          <HostelImage src={familias} alt={hostel.nome} />
+          <HostelImage src={hostel.imagem} alt={hostel.nome} />
           <HostelInfo>
             <HostelName>{hostel.nome}</HostelName>
             <HostelLocation>{hostel.localizacao}</HostelLocation>

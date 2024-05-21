@@ -1,11 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "../App.jsx";
-import Volunteers from "../page/Voluntario/Voluntario.jsx";
-import Familia from "../page/Familia/familia.jsx";
-import Hostel from "../page/Hostel/Hostel.jsx";
-import Homeless from "../page/Homeless/Homeless.jsx";
-import Doacao from "../page/Doacao.jsx/Doacao.jsx";
-import Home from "../page/home/index.jsx";
+import Volunteers from "../page/Volunteers/index.jsx";
+import Familia from "../page/Families/index.jsx";
+import Hostel from "../page/Hostel/index.jsx";
+import Homeless from "../page/Homeless/index.jsx";
+import Home from "../page/Home/index.jsx";
+import Donation from "../page/Donation/index.jsx";
 
 
 
@@ -15,13 +14,9 @@ export const router = createBrowserRouter([
     
  
     {path:'/',
-    element: <App/>
-    },
-
-    
-    {path:'/home',
     element: <Home/>
     },
+
     {path:'/familia',
     element: <Familia/>
     },
@@ -35,7 +30,7 @@ export const router = createBrowserRouter([
     },
 
     {path: '/Doacao',
-    element: <Doacao/>
+    element: <Donation/>
     },
   
     {path: '/Voluntario',

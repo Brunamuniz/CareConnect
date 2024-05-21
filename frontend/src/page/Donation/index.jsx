@@ -1,8 +1,36 @@
-import './Doacao.css';
-import Header from '../../components/header';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import Header from '../../components/header';
+import Global from '../../global/global';
+
+
+// Styled Components
+const PageDoacao = styled.div`
+  background-color: #E8EDDF;
+  width: 100%;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const DoacaoContainer = styled.div`
+  margin: 50px;
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  color: #333533;
+`;
+
+const TituloDoacao = styled.div`
+  color: #333533;
+  font-size: 30px;
+
+  &:hover {
+    color: #F5CB5C;
+    text-shadow: 0.5px 0.5px 4px #e9eedf;
+  }
+`;
 
 const DonationCard = styled.div`
   border: 1px solid #ccc;
@@ -41,7 +69,7 @@ const SuccessMessage = styled.p`
   font-weight: bold;
 `;
 
-function Doacao() {
+function Donation() {
   const [donations, setDonations] = useState([]);
   const [selectedDonation, setSelectedDonation] = useState(null);
   const [newDonation, setNewDonation] = useState({ tipo: '', quantidade: '', origem: '' });
@@ -85,12 +113,14 @@ function Doacao() {
   };
 
   return (
-    <div className="pageDoacao">
+   
+    <PageDoacao>
+      <Global/>
       <Header />
-      <div className="Doacao">
-        <div className="tituloDoacao">
+      <DoacaoContainer>
+        <TituloDoacao>
           <h1>Doações</h1>
-        </div>
+        </TituloDoacao>
         <div className="conteudoDoacao">
           <h2>Doe aqui</h2>
           <div>
@@ -125,14 +155,12 @@ function Doacao() {
               </Form>
               {successMessage && <SuccessMessage>{successMessage}</SuccessMessage>}
             </FormContainer>
-            <div>
-              
-            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </DoacaoContainer>
+    </PageDoacao>
+
   );
 }
 
-export default Doacao;
+export default Donation;
